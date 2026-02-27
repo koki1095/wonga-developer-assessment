@@ -21,12 +21,10 @@ A full-stack authentication application built with React, C# .NET 10.0, and Post
 ## Architecture
 
 The application follows a clean, containerized microservices architecture:
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│ Frontend │────▶│ Backend │────▶│ Database │
-│   :3000 │         │ :8080 │      │ :5432 │
-└─────────────┘ └─────────────┘ └─────────────┘
 
-text
+Frontend ────▶ :3000 
+Backend ────▶ :8080
+Database ────▶ :5432 
 
 ## Authentication Flow
 
@@ -100,32 +98,34 @@ curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"test@example.com","password":"password123"}'
 
-Running Tests
-bash
+
 # Run backend unit tests
 cd backend
 dotnet test
 
 Project Structure
-
 wonga-fair-assessment/
 ├── backend/
-│   ├── WongaFair.Api/          # Main API project
-│   │   ├── Controllers/        # API endpoints
-│   │   ├── Models/             # Entities and DTOs
-│   │   ├── Data/               # Database context
-│   │   └── Configuration/      # JWT settings
-│   └── WongaFair.Tests/        # Unit tests
+│ ├── WongaFair.Api/ # Main API project
+│ │ ├── Controllers/ # API endpoints
+│ │ ├── Models/ # Entities and DTOs
+│ │ ├── Data/ # Database context
+│ │ ├── Configuration/ # JWT settings
+│ │ └── Program.cs
+│ ├── WongaFair.Tests/ # Unit tests
+│ └── Dockerfile
 ├── frontend/
-│   └── wonga-fair-ui/          # React application
-│       ├── src/
-│       │   ├── components/      # Reusable components
-│       │   ├── pages/           # Login, Register, Dashboard
-│       │   ├── context/         # Auth context
-│       │   ├── services/        # API services
-│       │   └── assets/          # Logo and images
-│       └── public/              # Static assets
-└── docker-compose.yml           # Docker services
+│ └── wonga-fair-ui/ # React application
+│ ├── src/
+│ │ ├── components/ # Reusable components
+│ │ ├── pages/ # Login, Register, Dashboard
+│ │ ├── context/ # Auth context
+│ │ ├── services/ # API services
+│ │ ├── assets/ # Logo and images
+│ │ └── App.jsx
+│ ├── public/ # Static assets
+│ └── Dockerfile
+└── docker-compose.yml # Docker services
 
 Configuration Notes
 .NET 10.0 Compatibility
