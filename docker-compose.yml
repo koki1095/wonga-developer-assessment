@@ -1,0 +1,60 @@
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: wongafair_db
+    environment:
+      POSTGRES_DB: wongafairdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - wongafair_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wongafair_backend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=wongafairdb;Username=postgres;Password=postgres
+      - JwtSettings__Secret=your-super-secret-key-with-at-least-32-characters-here
+      - JwtSettings__Issuer=WongaFair.Api
+      - JwtSettings__Audience=WongaFair.Client
+      - JwtSettings__ExpirationInMinutes=60
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - wongafair_network
+
+  frontend:
+    build:
+      context: ./frontend/wonga-fair-ui
+      dockerfile: Dockerfile
+    container_name: wongafair_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - wongafair_network
+    environment:
+      - VITE_API_URL=http://localhost:8080/api
+
+networks:
+  wongafair_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
