@@ -87,7 +87,8 @@ See real-time repayment calculation
 Click "Apply Now" to see the thank you modal
 
 4. API Testing (without Swagger)
-bash
+
+
 # Register a user
 curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
@@ -136,9 +137,9 @@ Frontend: VITE_API_URL=http://localhost:8080/api
 
 Backend: Configured in appsettings.json and Docker environment
 
-👨‍💻 Author
+Author
 Koketso Pooe
 Email: koketso@y7mail.com
 
-🙏 Thank You
-Thank you for reviewing my submission! I thoroughly enjoyed building this application and demonstrating my full-stack development skills with React, C#, and Docker.
+Thank You
+Thank you for reviewing my submission! I thoroughly enjoyed building this application and demonstrating my development skills with React, C#, and Docker.
