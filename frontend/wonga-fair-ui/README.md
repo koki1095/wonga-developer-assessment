@@ -87,7 +87,8 @@ See real-time repayment calculation
 Click "Apply Now" to see the thank you modal
 
 4. API Testing (without Swagger)
-bash
+
+
 # Register a user
 curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
