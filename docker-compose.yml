@@ -6,17 +6,25 @@ services:
       POSTGRES_DB: wongafairdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      # Allow all connections (for development)
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      # Add a custom config to allow connections
+      - ./postgres-config:/docker-entrypoint-initdb.d
     networks:
       - wongafair_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -h localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
+    command: 
+      - "postgres"
+      - "-c"
+      - "listen_addresses=*"
 
   backend:
     build:

@@ -55,11 +55,16 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Add Swagger - SIMPLIFIED VERSION FOR .NET 10
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -76,4 +81,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-
