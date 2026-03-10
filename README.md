@@ -140,6 +140,3 @@ Backend: Configured in appsettings.json and Docker environment
 Author
 Koketso Pooe
 Email: koketso@y7mail.com
-
-Thank You
-Thank you for reviewing my submission! I thoroughly enjoyed building this application and demonstrating my development skills with React, C#, and Docker.
